@@ -71,17 +71,16 @@ public class CarResource {
 //    }    
     
     @GET
-    @Produces(MediaType.TEXT_HTML)
-    public View getCarssf() {
-        return new View("/resources/views/cars.html");
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Car> getCarssf() {
+        return carService.getCars();
     }      
 
     @GET
-    @Path("/{name}")
-    @Produces(MediaType.TEXT_HTML)
-    public View lookupMemberById(@PathParam("name") String name) {
-    	return new View("/resources/views/cars.html");
-        //return carService.getCarByName(name);
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Car lookupMemberById(@PathParam("id") Integer id) {
+        return carService.getCarById(id);
     }
 
 

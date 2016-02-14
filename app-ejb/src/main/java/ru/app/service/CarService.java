@@ -32,4 +32,10 @@ public class CarService {
     	return (Car) q.getSingleResult();
     }
 
+    public Car getCarById(Integer id) {
+    	Query q = em.createNamedQuery("carById");
+    	q.setParameter("id", id);
+    	return (Car) q.getSingleResult();
+    }
+
 }

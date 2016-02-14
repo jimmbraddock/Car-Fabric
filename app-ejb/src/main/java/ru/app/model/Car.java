@@ -20,6 +20,8 @@ import javax.persistence.Table;
                 query="SELECT c FROM Car c"),
     @NamedQuery(name="carByName",
                 query="SELECT c FROM Car c WHERE c.name = :name"),
+    @NamedQuery(name="carById",
+                query="SELECT c FROM Car c WHERE c.id = :id")    
 }) 
 public class Car implements Serializable {
 	private static final long serialVersionUID = 1L;
