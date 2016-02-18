@@ -44,37 +44,45 @@ import javax.ws.rs.core.Response;
 import org.jboss.resteasy.plugins.providers.html.View;
 
 import ru.app.model.Car;
+import ru.app.model.Carcase;
 import ru.app.service.CarService;
+import ru.app.service.CarcaseService;
 
 /**
  * JAX-RS Example
  * <p/>
  * This class produces a RESTful service to read/write the contents of the members table.
  */
-@Path("/cars")
+@Path("/carcase")
 @RequestScoped
-public class CarResource {
+public class CarcaseResources {
     @Inject
     private Logger log;
     
     @Inject
-    CarService carService;
+    CarcaseService carcaseService;
     
     @Inject
-    EntityManager em; 
+    EntityManager em;
+    
+//    @GET
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public List<Car> getCars() {
+//        return carService.getCars();
+//    }    
     
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Car> getCars() {
-        return carService.getCars();
+    public List<Carcase> getFreeCarcases() {
+        return carcaseService.getCarcases();
     }      
 
-    @GET
-    @Path("/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Car lookupCarById(@PathParam("id") Integer id) {
-        return carService.getCarById(id);
-    }
+//    @GET
+//    @Path("/{id}")
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public Car lookupMemberById(@PathParam("id") Integer id) {
+//        return carService.getCarById(id);
+//    }
 
 
 }

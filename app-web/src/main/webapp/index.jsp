@@ -10,21 +10,9 @@
 	<ul id="cars" style="display: table-row;"></ul>
 
 	<script type="text/javascript">
-		findAll()
-		function findAll() {
-			console.log('findAll');
-
-			$.ajax({
-				type : 'GET',
-				url : '${pageContext.request.contextPath}/park/cars',
-				dataType : "json", // data type of response
-				success : function(data) {
-					for (var i = 0; i < data.length; i++) {
-						$('#cars').append('<li><a href="${pageContext.request.contextPath}/views/car.jsp?car='+data[i].id+'">'+data[i].name+'</a></li>');
-					}
-					console.log("Ura");
-				}
-			});
+		var cars = CarResource.getCars();
+		for (var i = 0; i < cars.length; i++) {
+			$('#cars').append('<li><a href="${pageContext.request.contextPath}/views/car.jsp?car='+cars[i].id+'">'+cars[i].name+'</a></li>');
 		}
 	</script>
     </jsp:body>

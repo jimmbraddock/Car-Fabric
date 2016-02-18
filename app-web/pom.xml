@@ -57,6 +57,12 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jsapi</artifactId>
+			<version>3.0.14.Final</version>
+		</dependency>
+
 		<!-- Import the CDI API, we use provided scope as the API is included in 
 			JBoss WildFly -->
 		<dependency>

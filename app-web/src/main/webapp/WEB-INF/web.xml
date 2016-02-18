@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<web-app>
+
+	<servlet>
+		<servlet-name>RESTEasy-JSAPI</servlet-name>
+		<servlet-class>org.jboss.resteasy.jsapi.JSAPIServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>RESTEasy-JSAPI</servlet-name>
+		<url-pattern>/js/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>RESTEasy-JSAPI</servlet-name>
+		<url-pattern>/views/js/*</url-pattern>
+	</servlet-mapping>	
+	
+</web-app>
+
+

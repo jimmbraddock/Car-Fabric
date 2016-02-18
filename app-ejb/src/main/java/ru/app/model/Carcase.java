@@ -18,10 +18,10 @@ import javax.persistence.Table;
 @Entity
 @Table(name="carcase")
 @NamedQueries({
-    @NamedQuery(name="getCarsaces",
-                query="SELECT c FROM Carcase c"),
+    @NamedQuery(name="getCarcases",
+                query="FROM Carcase c WHERE NOT EXISTS(FROM Car st WHERE st.carcase = c)"),
     @NamedQuery(name="carcaseByType",
-                query="SELECT c FROM Carcase c WHERE c.type = :type"),
+                query="FROM Carcase c WHERE c.type = :type"),
 }) 
 public class Carcase implements Serializable {
 	private static final long serialVersionUID = 1L;

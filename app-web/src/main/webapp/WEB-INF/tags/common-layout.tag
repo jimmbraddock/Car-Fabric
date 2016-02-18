@@ -5,6 +5,7 @@
 <html>
 <head>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script lang="javascript" src="./js"></script>
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/resources/css/header.css" />">
 </head>

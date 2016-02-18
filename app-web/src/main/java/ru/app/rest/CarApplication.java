@@ -39,6 +39,7 @@ public class CarApplication extends Application {
 	@Override
     public Set<Class<?>> getClasses() {
 		classes.add(CarResource.class);
+		classes.add(CarcaseResources.class);
         return classes;
     }	
     /* class body intentionally left blank */
