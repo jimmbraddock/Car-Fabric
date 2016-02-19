@@ -2,12 +2,24 @@ package ru.app.model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlTransient;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
  * Entity implementation class for Entity: Car
@@ -23,6 +35,7 @@ import javax.persistence.Table;
     @NamedQuery(name="carById",
                 query="SELECT c FROM Car c WHERE c.id = :id")    
 }) 
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@carId")
 public class Car implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -33,12 +46,17 @@ public class Car implements Serializable {
 	@Column(name="NAME")
 	private String name;
 	
-	@Column(name="CARCASE_ID")
-	private Integer carcase;
-	@Column(name="ENGINE_ID")
-	private Integer engine;
-	@Column(name="TRANSMISSION_ID")
-	private Integer transmission;
+	@JoinColumn(name="CARCASE_ID")
+	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	private Carcase carcase;
+	
+	@JoinColumn(name="ENGINE_ID")
+	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	private Engine engine;
+	
+	@JoinColumn(name="TRANSMISSION_ID")
+	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	private Transmission transmission;
 	
 	
 	public Integer getId() {
@@ -53,22 +71,22 @@ public class Car implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Integer getCarcase() {
+	public Carcase getCarcase() {
 		return carcase;
 	}
-	public void setCarcase(Integer carcase) {
+	public void setCarcase(Carcase carcase) {
 		this.carcase = carcase;
 	}
-	public Integer getEngine() {
+	public Engine getEngine() {
 		return engine;
 	}
-	public void setEngine(Integer engine) {
+	public void setEngine(Engine engine) {
 		this.engine = engine;
 	}
-	public Integer getTransmission() {
+	public Transmission getTransmission() {
 		return transmission;
 	}
-	public void setTransmission(Integer transmission) {
+	public void setTransmission(Transmission transmission) {
 		this.transmission = transmission;
 	}
    

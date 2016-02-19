@@ -14,18 +14,20 @@
         </div>
         <div id="engine"></div>
         <div id="transmission"></div>
+        
        	<script type="text/javascript">
  	                      var k = new Array();
                         k['id'] = parseInt(GetURLParameter("car"));
 			var car = CarResource
 					.lookupCarById({id: k["id"]});
 			$('#car').text(car.name);
-			$('#engine').text(car.engine);
-			$('#transmission').text(car.transmission);
+			$('#engine').text(car.engine.serialNumber);
+			$('#transmission').text(car.transmission.serialNumber);
 			var carcases = CarcaseResources
 					.getFreeCarcases();
+			carcases.push(car.carcase);
 			for (var i = 0; i < carcases.length; i++) {
-				if (car.carcase == carcases[i].id) {
+				if (car.carcase.serialNumber == carcases[i].serialNumber) {
 					$('#free_carcases')
 							.append(
 									'<option selected value="'+carcases[i].serialNumber+'">'
