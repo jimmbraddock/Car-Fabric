@@ -38,4 +38,8 @@ public class CarService {
     	return (Car) q.getSingleResult();
     }
 
+    public void updateCar(Car car) {
+    	em.merge(car);
+    }
+    
 }

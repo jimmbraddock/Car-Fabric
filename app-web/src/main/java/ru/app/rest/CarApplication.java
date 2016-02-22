@@ -40,6 +40,8 @@ public class CarApplication extends Application {
     public Set<Class<?>> getClasses() {
 		classes.add(CarResource.class);
 		classes.add(CarcaseResources.class);
+		classes.add(EngineResource.class);
+		classes.add(TransmissionResource.class);		
         return classes;
     }	
     /* class body intentionally left blank */

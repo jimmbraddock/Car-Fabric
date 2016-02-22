@@ -12,9 +12,10 @@ import javax.persistence.Query;
 
 import ru.app.model.Car;
 import ru.app.model.Carcase;
+import ru.app.model.Transmission;
 
 @Stateless
-public class CarcaseService {
+public class TransmissionService {
 
     @Inject
     private Logger log;
@@ -23,8 +24,8 @@ public class CarcaseService {
     private EntityManager em;
     
     @SuppressWarnings("unchecked")
-	public List<Carcase> getCarcases() {
-    	return em.createNamedQuery("getCarcases").getResultList();
+	public List<Transmission> getTransmissions() {
+    	return em.createNamedQuery("getTransmissions").getResultList();
     }
     
 //    public Car getCarByName(String name) {
@@ -33,10 +34,10 @@ public class CarcaseService {
 //    	return (Car) q.getSingleResult();
 //    }
 //
-    public Carcase getCarcase(Integer id) {
-    	Query q = em.createNamedQuery("carcaseById");
+    public Transmission getTransmission(Integer id) {
+    	Query q = em.createNamedQuery("transmissionById");
     	q.setParameter("id", id);
-    	return (Carcase) q.getSingleResult();
+    	return (Transmission) q.getSingleResult();
     }
 
 }

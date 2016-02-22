@@ -72,11 +72,19 @@ public class CarcaseResources {
 //    }    
     
     @GET
+    @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Carcase> getFreeCarcases() {
         return carcaseService.getCarcases();
     }      
 
+    @GET
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Carcase getCarcase(@PathParam("id") Integer id) {
+        return carcaseService.getCarcase(id);
+    } 
+    
 //    @GET
 //    @Path("/{id}")
 //    @Produces(MediaType.APPLICATION_JSON)

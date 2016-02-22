@@ -2,9 +2,12 @@ package ru.app.model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -27,15 +30,17 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Table(name="engine")
 @NamedQueries({
     @NamedQuery(name="getEngines",
-                query="SELECT c FROM Engine c"),
+                query="FROM Engine c WHERE NOT EXISTS(FROM Car st WHERE st.engine = c)"),
     @NamedQuery(name="engineByType",
-                query="SELECT c FROM Engine c WHERE c.type = :type"),
+                query="FROM Engine c WHERE c.type = :type"),
+    @NamedQuery(name="engineById",
+                query="FROM Engine c WHERE c.id = :id"),    
 })
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@engineId")
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@engineId", scope = Engine.class)
 public class Engine implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="ENGINE_ID")
 	private Integer id;
 	
@@ -50,7 +55,7 @@ public class Engine implements Serializable {
 	@OneToOne(mappedBy="engine", fetch=FetchType.LAZY)
 	private Car car;
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="ENGINE_TYPE_ID")
 	private EngineType type;
 	

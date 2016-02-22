@@ -2,9 +2,12 @@ package ru.app.model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -30,19 +33,21 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
                 query="FROM Carcase c WHERE NOT EXISTS(FROM Car st WHERE st.carcase = c)"),
     @NamedQuery(name="carcaseByType",
                 query="FROM Carcase c WHERE c.type = :type"),
+    @NamedQuery(name="carcaseById",
+                query="FROM Carcase c WHERE c.id = :id"),    
 }) 
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@carcaseId")
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@carcaseId", scope = Carcase.class)
 public class Carcase implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="CARCASE_ID")
 	private Integer id;
 	
 	@Column(name="CARCASE_SERIAL_NUMBER")
 	private String serialNumber;
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="CARCASE_TYPE_ID")
 	private CarcaseType type;
 	

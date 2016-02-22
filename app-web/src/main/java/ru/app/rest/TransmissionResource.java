@@ -34,7 +34,6 @@ import javax.validation.Validator;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -45,45 +44,55 @@ import javax.ws.rs.core.Response;
 import org.jboss.resteasy.plugins.providers.html.View;
 
 import ru.app.model.Car;
+import ru.app.model.Carcase;
+import ru.app.model.Transmission;
 import ru.app.service.CarService;
+import ru.app.service.CarcaseService;
+import ru.app.service.TransmissionService;
 
 /**
  * JAX-RS Example
  * <p/>
  * This class produces a RESTful service to read/write the contents of the members table.
  */
-@Path("/cars")
+@Path("/transmission")
 @RequestScoped
-public class CarResource {
+public class TransmissionResource {
     @Inject
     private Logger log;
     
     @Inject
-    CarService carService;
+    TransmissionService transmissionService;
     
     @Inject
-    EntityManager em; 
+    EntityManager em;
+    
+//    @GET
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public List<Car> getCars() {
+//        return carService.getCars();
+//    }    
     
     @GET
+    @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Car> getCars() {
-        return carService.getCars();
+    public List<Transmission> getFreeTransmissions() {
+        return transmissionService.getTransmissions();
     }      
 
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Car lookupCarById(@PathParam("id") Integer id) {
-        return carService.getCarById(id);
-    }
+    public Transmission getTransmission(@PathParam("id") Integer id) {
+        return transmissionService.getTransmission(id);
+    } 
     
-    @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Path("{id}")
-    public Response updateCar(Car car) {
-    	carService.updateCar(car);
-        return Response.status(200).build();
-    }    
+//    @GET
+//    @Path("/{id}")
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public Car lookupMemberById(@PathParam("id") Integer id) {
+//        return carService.getCarById(id);
+//    }
 
 
 }

@@ -2,15 +2,19 @@ package ru.app.model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -28,22 +32,24 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Table(name="transmission")
 @NamedQueries({
     @NamedQuery(name="getTransmissions",
-                query="SELECT c FROM Transmission c"),
+                query="FROM Transmission c WHERE NOT EXISTS(FROM Car st WHERE st.transmission = c)"),
     @NamedQuery(name="transmissionByType",
-                query="SELECT c FROM Transmission c WHERE c.type = :type"),
+                query="FROM Transmission c WHERE c.type = :type"),
+    @NamedQuery(name="transmissionById",
+                query="FROM Transmission c WHERE c.id = :id"),    
 })
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@transmissionId")
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@transmissionId", scope = Transmission.class)
 public class Transmission implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="TRANSMISSION_ID")
 	private Integer id;
 	
 	@Column(name="TRANSMISSION_SERIAL_NUMBER", unique=true)
 	private String serialNumber;
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="TRANSMISSION_TYPE_ID")
 	private TransmissionType type;
 	
